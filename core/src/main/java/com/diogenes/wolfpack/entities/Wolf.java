@@ -27,4 +27,14 @@ abstract public class Wolf extends Unit {
     }
 
     abstract void onLevelUp();
+
+    // Here attack is increased by 2 for balance purpouses
+    public void increaseAttack(){
+        this.attack += 2;
+    }
+
+    public void increaseDefense(){
+        this.defense++;
+    }
+
 }

@@ -97,6 +97,7 @@ public abstract class Unit {
         return this.skills;
     }
 
+    // TODO: need to handle more than 4 skills, maybe ignore, later can make replace of skills
     public void addSkill(Skill skill){
         this.skills.add(skill);
     }
