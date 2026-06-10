@@ -22,10 +22,8 @@ abstract public class Skill {
             return false;
         }
 
-
         execute(user, target);
 
-        // Coloca o golpe em recarga com o valor máximo
         currentCooldown = baseCooldown;
         return true;
     }
