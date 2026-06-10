@@ -1,4 +1,4 @@
-﻿package com.diogenes.wolfpack.entities;
+package com.diogenes.wolfpack.entities;
 
 abstract public class Wolf extends Unit {
 

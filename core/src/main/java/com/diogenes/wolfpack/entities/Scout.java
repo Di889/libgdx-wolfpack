@@ -1,4 +1,4 @@
-﻿package com.diogenes.wolfpack.entities;
+package com.diogenes.wolfpack.entities;
 
 public class Scout extends Wolf{
     public Scout() {

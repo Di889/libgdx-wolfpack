@@ -1,4 +1,4 @@
-﻿package com.diogenes.wolfpack.effects;
+package com.diogenes.wolfpack.effects;
 
 import com.diogenes.wolfpack.entities.Unit;
 
