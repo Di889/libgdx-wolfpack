@@ -9,12 +9,14 @@ abstract public class Skill {
 
     protected int baseCooldown;
     protected int currentCooldown;
+    protected boolean targetAlly;
 
-    public Skill(String name, String description, int baseCooldown){
+    public Skill(String name, String description, int baseCooldown, boolean targetAlly){
         this.name = name;
         this.description = description;
         this.baseCooldown = baseCooldown;
         this.currentCooldown = 0;
+        this.targetAlly = targetAlly;
     }
 
     public boolean use(Unit user, Unit target) {
@@ -40,4 +42,5 @@ abstract public class Skill {
     public String getDescription() { return description; }
     public int getCurrentCooldown() { return currentCooldown; }
     public boolean isOnCooldown() { return currentCooldown > 0; }
+    public boolean isTargetAlly() { return targetAlly; }
 }

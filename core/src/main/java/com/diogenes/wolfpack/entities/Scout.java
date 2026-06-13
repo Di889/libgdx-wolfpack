@@ -1,5 +1,7 @@
 package com.diogenes.wolfpack.entities;
 
+import com.diogenes.wolfpack.skills.Bite;
+
 public class Scout extends Wolf{
     public Scout() {
         super("Scout", 25, 7, 3, 8);

@@ -1,6 +1,6 @@
 package com.diogenes.wolfpack.entities;
 
-abstract public class Wolf extends Unit {
+public abstract class Wolf extends Unit {
 
     protected int currentXp;
     protected int xpThreshold;

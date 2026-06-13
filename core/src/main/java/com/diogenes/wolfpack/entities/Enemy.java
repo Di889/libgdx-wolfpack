@@ -4,7 +4,7 @@ import com.diogenes.wolfpack.battle.BattleAction;
 
 import java.util.List;
 
-abstract public class Enemy extends Unit{
+public abstract class Enemy extends Unit{
 
     protected int xpReward;
     protected int foodReward;
@@ -15,5 +15,5 @@ abstract public class Enemy extends Unit{
         this.foodReward = 3;
     }
 
-    abstract BattleAction chooseAction(List<Unit> targets);
+    public abstract BattleAction chooseAction(List<? extends Unit> targets);
 }

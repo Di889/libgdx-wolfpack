@@ -14,7 +14,7 @@ public class Boar extends Enemy{
     }
 
     @Override
-    BattleAction chooseAction(List<Unit> targets) {
+    public BattleAction chooseAction(List<? extends Unit> targets) {
         Unit lesserHpTarget = targets.get(0);
 
         for(Unit u : targets){

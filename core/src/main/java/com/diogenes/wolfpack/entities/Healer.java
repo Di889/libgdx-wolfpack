@@ -1,5 +1,7 @@
 package com.diogenes.wolfpack.entities;
 
+import com.diogenes.wolfpack.skills.Bite;
+
 public class Healer extends Wolf{
     public Healer() {
         super("Healer", 30, 4, 4, 6);
