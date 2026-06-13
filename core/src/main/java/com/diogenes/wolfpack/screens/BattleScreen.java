@@ -51,8 +51,6 @@ public class BattleScreen implements Screen {
         currentSkillIndex = 0;
         currentTargetIndex = 0;
 
-        System.out.println(battleManager.getTurnOrder());
-
     }
 
     @Override

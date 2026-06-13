@@ -7,6 +7,7 @@ public class Scout extends Wolf{
         super("Scout", 25, 7, 3, 8);
 
         // Base skills to Scout Wolf
+        addSkill(new Bite());
     }
 
     @Override

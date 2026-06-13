@@ -7,6 +7,7 @@ public class Healer extends Wolf{
         super("Healer", 30, 4, 4, 6);
 
         // Base skills to Healer Wolf
+        addSkill(new Bite());
     }
 
     @Override
