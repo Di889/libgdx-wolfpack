@@ -5,7 +5,7 @@ import com.diogenes.wolfpack.entities.Unit;
 public class Bite extends Skill {
 
     public Bite() {
-        super("Bite", "Basic Attack", 0, false);
+        super("Mordida", "Ataque básico que causa dano", 0, false);
     }
 
     @Override

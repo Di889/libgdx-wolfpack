@@ -192,9 +192,9 @@ public class BattleScreen implements Screen {
         } else if (currentState == BattleState.SELECT_TARGET) {
             drawTargetSelection();
         } else if (currentState == BattleState.VICTORY) {
-            game.font.draw(game.batch, "VICTORY! The pack survives.", 240, 240);
+            game.font.draw(game.batch, "VITORIA! A Matilha sobrevive.", 240, 240);
         } else if (currentState == BattleState.DEFEAT) {
-            game.font.draw(game.batch, "DEFEAT... The pack has fallen.", 240, 240);
+            game.font.draw(game.batch, "DERROTA... A Matilha cai.", 240, 240);
         }
 
         game.batch.end();
@@ -203,7 +203,7 @@ public class BattleScreen implements Screen {
     private void drawTurnInfo() {
         game.font.draw(
             game.batch,
-            "Current Turn: " + battleManager.getCurrentUnit().getName(),
+            "Turno Atual: " + battleManager.getCurrentUnit().getName(),
             10,
             470
         );
@@ -211,7 +211,7 @@ public class BattleScreen implements Screen {
 
     private void drawWolves() {
         int y = 430;
-        game.font.draw(game.batch, "--- WOLVES ---", 10, y);
+        game.font.draw(game.batch, "--- LOBOS ---", 10, y);
         y -= 20;
 
         for (Wolf w : battleManager.getWolves()) {
@@ -229,7 +229,7 @@ public class BattleScreen implements Screen {
         int y = 430;
         int x = 400;
 
-        game.font.draw(game.batch, "--- ENEMIES ---", x, y);
+        game.font.draw(game.batch, "--- INIMIGOS ---", x, y);
         y -= 20;
 
         for (Enemy e : battleManager.getEnemies()) {
@@ -245,7 +245,7 @@ public class BattleScreen implements Screen {
 
     private void drawSkillSelection() {
         int y = 200;
-        game.font.draw(game.batch, "Choose Skill (Left/Right arrows, Space to confirm):", 10, y);
+        game.font.draw(game.batch, "Escolha a Habilidade (Setas Esquerda/Direita, Espaço para confirmar):", 10, y);
         y -= 30;
 
         List<Skill> skills = battleManager.getCurrentUnit().getSkills();
@@ -263,7 +263,7 @@ public class BattleScreen implements Screen {
 
     private void drawTargetSelection() {
         int y = 200;
-        game.font.draw(game.batch, "Choose Target (Left/Right arrows, Space to confirm):", 10, y);
+        game.font.draw(game.batch, "Escolha o Alvo (Setas Esquerda/Direita, Espaço para confirmar):", 10, y);
         y -= 30;
 
         for (int i = 0; i < selectedTargetsList.size(); i++) {

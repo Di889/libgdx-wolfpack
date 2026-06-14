@@ -5,7 +5,7 @@ import com.diogenes.wolfpack.skills.Bite;
 public class Alpha extends Wolf{
 
     public Alpha() {
-        super("Alpha", 45, 8, 7, 4);
+        super("Líder", 45, 8, 7, 4);
 
         // Base skills to Alpha Wolf
         addSkill(new Bite()); // Adding Bite Skill

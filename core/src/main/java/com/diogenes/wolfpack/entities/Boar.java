@@ -8,7 +8,7 @@ import java.util.List;
 public class Boar extends Enemy{
 
     public Boar() {
-        super("Boar", 18, 4, 4, 3);
+        super("Javali", 18, 4, 4, 3);
 
         addSkill(new Bite());
     }

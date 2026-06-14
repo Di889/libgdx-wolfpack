@@ -4,7 +4,7 @@ import com.diogenes.wolfpack.skills.Bite;
 
 public class Scout extends Wolf{
     public Scout() {
-        super("Scout", 25, 7, 3, 8);
+        super("Rastreador", 25, 7, 3, 8);
 
         // Base skills to Scout Wolf
         addSkill(new Bite());
