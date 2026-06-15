@@ -22,7 +22,11 @@ abstract public class StatusEffect {
         }
     }
 
+    abstract public void onApply(Unit target);
+
     abstract public void onTurn(Unit target);
 
     abstract public void onRemove(Unit target);
+
+    public String getName() { return name; }
 }

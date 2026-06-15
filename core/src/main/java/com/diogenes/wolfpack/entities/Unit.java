@@ -9,7 +9,6 @@ import java.util.List;
 public abstract class Unit {
 
     protected String name;
-    protected int level;
 
     protected int maxHp;
     private int hp;
@@ -27,7 +26,6 @@ public abstract class Unit {
         this.attack = attack;
         this.defense = defense;
         this.speed = speed;
-        this.level = 1;
         this.statusEffects = new ArrayList<>();
         this.skills = new ArrayList<>();
     }
@@ -37,15 +35,8 @@ public abstract class Unit {
     }
 
     public int takeDamage(int damage){
-        int realDamage = damage - defense;
-        if(realDamage < 0) {
-            realDamage = 0;
-        }
-        int newHp = hp - realDamage;
-        if(newHp < 0){
-            newHp = 0;
-        }
-        hp = newHp;
+        int realDamage = Math.max(1, damage - defense);
+        hp = Math.max(0, hp - realDamage);
         return realDamage;
     }
 
@@ -61,7 +52,7 @@ public abstract class Unit {
 
     public void addStatusEffect(StatusEffect effect){
         this.statusEffects.add(effect);
-        // effect.applyEffect(this); // TODO: DESIGN DECISION
+        effect.onApply(this);
     }
 
     public void removeStatusEffect(StatusEffect effect){
@@ -75,10 +66,6 @@ public abstract class Unit {
 
     public String getName() {
         return name;
-    }
-
-    public int getLevel() {
-        return level;
     }
 
     public int getHp() {
@@ -105,8 +92,13 @@ public abstract class Unit {
         return this.skills;
     }
 
-    // TODO: need to handle more than 4 skills, maybe ignore, later can make replace of skills
     public void addSkill(Skill skill){
         this.skills.add(skill);
     }
+
+    public void modifyAttack(int amount) { this.attack += amount; }
+
+    public void modifyDefense(int amount) { this.defense += amount; }
+
+    public void modifySpeed(int amount) { this.speed += amount; }
 }
