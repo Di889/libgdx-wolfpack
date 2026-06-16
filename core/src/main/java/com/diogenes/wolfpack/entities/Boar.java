@@ -1,27 +1,35 @@
 package com.diogenes.wolfpack.entities;
 
 import com.diogenes.wolfpack.battle.BattleAction;
-import com.diogenes.wolfpack.skills.Bite;
+import com.diogenes.wolfpack.effects.Bleed;
+import com.diogenes.wolfpack.skills.Bash;
+import com.diogenes.wolfpack.skills.Skill;
+import com.diogenes.wolfpack.skills.TuskSwing;
 
 import java.util.List;
 
 public class Boar extends Enemy{
 
     public Boar() {
-        super("Javali", 18, 4, 4, 3);
+        super("Javali", 30, 6, 4, 4);
 
-        addSkill(new Bite());
+        addSkill(new Bash());
+        addSkill(new TuskSwing());
     }
 
     @Override
     public BattleAction chooseAction(List<? extends Unit> targets) {
-        Unit lesserHpTarget = targets.get(0);
+        Unit highestHpTarget = targets.get(0);
 
         for(Unit u : targets){
-             if(lesserHpTarget.getHp() > u.getHp()){
-                lesserHpTarget = u;
-             }
+            if(u.getHp() > highestHpTarget.getHp()){
+                highestHpTarget = u;
+            }
         }
-        return new BattleAction(getSkills().get(0), lesserHpTarget);
+
+        Skill skillToUse = highestHpTarget.hasStatusEffect(Bleed.class) ? getSkills().get(0) : getSkills().get(1);
+
+        return new BattleAction(skillToUse, highestHpTarget);
     }
 }
+
