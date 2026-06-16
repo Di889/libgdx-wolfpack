@@ -1,5 +1,6 @@
 package com.diogenes.wolfpack.entities;
 
+import com.diogenes.wolfpack.effects.Marked;
 import com.diogenes.wolfpack.effects.StatusEffect;
 import com.diogenes.wolfpack.skills.Skill;
 
@@ -35,19 +36,29 @@ public abstract class Unit {
     }
 
     public int takeDamage(int damage){
+        if(hasStatusEffect(Marked.class)){
+            damage = (int)(damage * 1.5);
+            removeStatusEffect(getStatusEffect(Marked.class));
+        }
+
         int realDamage = Math.max(1, damage - defense);
         hp = Math.max(0, hp - realDamage);
         return realDamage;
     }
 
-    public int heal(int healAmount){
-        int newHp = healAmount + hp;
-        if(newHp > maxHp){
-            newHp = maxHp;
-        }
-        healAmount = newHp - hp;
+    public int applyTrueDamage(int damage){
+        int realDamage = Math.max(0, damage);
+        int newHp = Math.max(0, hp - realDamage);
+        realDamage = hp - newHp;
         hp = newHp;
-        return healAmount;
+        return realDamage;
+    }
+
+    public int heal(int healAmount){
+        int newHp = Math.min(maxHp, hp + healAmount);
+        int realHeal = newHp - hp;
+        hp = newHp;
+        return realHeal;
     }
 
     public void addStatusEffect(StatusEffect effect){
@@ -56,8 +67,22 @@ public abstract class Unit {
     }
 
     public void removeStatusEffect(StatusEffect effect){
+        if(effect == null) return;
         effect.onRemove(this);
         this.statusEffects.remove(effect);
+    }
+
+    public boolean hasStatusEffect(Class<? extends StatusEffect> type){
+        return getStatusEffect(type) != null;
+    }
+
+    public StatusEffect getStatusEffect(Class<? extends StatusEffect> type){
+        for(StatusEffect effect : statusEffects){
+            if(type.isInstance(effect)){
+                return effect;
+            }
+        }
+        return null;
     }
 
     public List<StatusEffect> getStatusEffects() {
