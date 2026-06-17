@@ -46,7 +46,7 @@ public class BattleManager {
 
     public boolean playerWon(){
         for(Enemy e : enemies){
-            if(e.isAlive())
+            if(e.isAlive() && !e.hasFled())
                 return false;
         }
 

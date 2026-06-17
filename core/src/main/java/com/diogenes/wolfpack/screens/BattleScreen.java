@@ -143,6 +143,10 @@ public class BattleScreen implements Screen {
     // need to add a waiting time, or "space to continue"
     private void handleEnemyTurn(){
         BattleAction action = ((Enemy) battleManager.getCurrentUnit()).chooseAction(battleManager.getWolves());
+
+        // if action is null the enemy fled
+        if(action == null) return;
+
         battleManager.executeAction(battleManager.getCurrentUnit(), action);
     }
 
