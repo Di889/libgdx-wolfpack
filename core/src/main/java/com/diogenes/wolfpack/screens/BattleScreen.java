@@ -13,6 +13,7 @@ import com.diogenes.wolfpack.battle.BattleManager;
 import com.diogenes.wolfpack.battle.BattleState;
 import com.diogenes.wolfpack.entities.*;
 import com.diogenes.wolfpack.skills.Skill;
+import com.diogenes.wolfpack.skills.TargetingType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class BattleScreen implements Screen {
     private int currentSkillIndex;
     private int currentTargetIndex;
     private List<? extends Unit> selectedTargetsList;
+    private Unit lastTurnStartProcessedFor;
 
     public BattleScreen(final WolfPack game) {
         this.game = game;
@@ -42,15 +44,12 @@ public class BattleScreen implements Screen {
         initUnits();
 
         battleManager = new BattleManager(wolves, enemies);
-        if(battleManager.getCurrentUnit() instanceof Wolf){
-            currentState = BattleState.SELECT_SKILL;
-        }else{
-            currentState = BattleState.ENEMY_TURN;
-        }
 
         currentSkillIndex = 0;
         currentTargetIndex = 0;
+        lastTurnStartProcessedFor = null;
 
+        beginCurrentUnitTurn();
     }
 
     @Override
@@ -109,8 +108,24 @@ public class BattleScreen implements Screen {
         } else {
             currentState = BattleState.ENEMY_TURN;
             handleEnemyTurn();
-            battleManager.nextTurn();
+            advanceToNextTurn();
         }
+    }
+
+    private void beginCurrentUnitTurn(){
+        Unit currentUnit = battleManager.getCurrentUnit();
+
+        if(currentUnit != lastTurnStartProcessedFor){
+            battleManager.processTurnStart(currentUnit);
+            lastTurnStartProcessedFor = currentUnit;
+        }
+
+        currentState = (currentUnit instanceof Wolf) ? BattleState.SELECT_SKILL : BattleState.ENEMY_TURN;
+    }
+
+    private void advanceToNextTurn(){
+        battleManager.nextTurn();
+        beginCurrentUnitTurn();
     }
 
     private boolean checkBattleOver(){
@@ -125,6 +140,7 @@ public class BattleScreen implements Screen {
         return false;
     }
 
+    // need to add a waiting time, or "space to continue"
     private void handleEnemyTurn(){
         BattleAction action = ((Enemy) battleManager.getCurrentUnit()).chooseAction(battleManager.getWolves());
         battleManager.executeAction(battleManager.getCurrentUnit(), action);
@@ -147,8 +163,20 @@ public class BattleScreen implements Screen {
             selectedSkill = battleManager.getCurrentUnit().getSkills().get(currentSkillIndex);
 
             if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-                selectedTargetsList = selectedSkill.isTargetAlly() ? battleManager.getWolves() : battleManager.getEnemies();
-                currentState = BattleState.SELECT_TARGET;
+                TargetingType targetingType = selectedSkill.getTargetingType();
+
+                if(targetingType == TargetingType.ALL_ENEMIES
+                    || targetingType == TargetingType.ALL_ALLIES
+                    || targetingType == TargetingType.SELF){
+                    // pass null target to battlemanager as he has logic to handle it
+                    confirmAndExecute(null);
+                } else {
+                    selectedTargetsList = (targetingType == TargetingType.SINGLE_ALLY)
+                        ? battleManager.getWolves()
+                        : battleManager.getEnemies();
+                    currentTargetIndex = 0;
+                    currentState = BattleState.SELECT_TARGET;
+                }
             }
         }
 
@@ -166,15 +194,19 @@ public class BattleScreen implements Screen {
             }
             selectedTarget = selectedTargetsList.get(currentTargetIndex);
             if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-                battleManager.executeAction(battleManager.getCurrentUnit(), new BattleAction(selectedSkill, selectedTarget));
-                currentSkillIndex = 0;
-                currentTargetIndex = 0;
-                battleManager.nextTurn();
-                currentState = BattleState.SELECT_SKILL;
+                confirmAndExecute(selectedTarget);
             }
 
         }
 
+    }
+
+    // execute the selected skill and advances turn
+    private void confirmAndExecute(Unit target){
+        battleManager.executeAction(battleManager.getCurrentUnit(), new BattleAction(selectedSkill, target));
+        currentSkillIndex = 0;
+        currentTargetIndex = 0;
+        advanceToNextTurn();
     }
 
     private void draw() {
