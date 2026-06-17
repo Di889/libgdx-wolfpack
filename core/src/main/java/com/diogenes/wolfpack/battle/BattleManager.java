@@ -1,8 +1,10 @@
 package com.diogenes.wolfpack.battle;
 
+import com.diogenes.wolfpack.effects.StatusEffect;
 import com.diogenes.wolfpack.entities.Enemy;
 import com.diogenes.wolfpack.entities.Unit;
 import com.diogenes.wolfpack.entities.Wolf;
+import com.diogenes.wolfpack.skills.TargetingType;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -63,7 +65,37 @@ public class BattleManager {
     }
 
     public void executeAction(Unit user, BattleAction action){
-        action.skill.use(user, action.target);
+        TargetingType targetingType = action.skill.getTargetingType();
+
+        switch (targetingType) {
+            case SINGLE_ENEMY:
+            case SINGLE_ALLY:
+                action.skill.use(user, action.target);
+                break;
+            case ALL_ENEMIES:
+                action.skill.use(user, (user instanceof Wolf) ? enemies : wolves);
+                break;
+            case ALL_ALLIES:
+                action.skill.use(user, (user instanceof Wolf) ? wolves : enemies);
+                break;
+            case SELF:
+                action.skill.use(user, user);
+                break;
+        }
+    }
+
+    // manages the status effects of a given unit
+    // should be called at the start(before action handling) of the unit's turn
+    public void processTurnStart(Unit unit){
+        List<StatusEffect> effects = new ArrayList<>(unit.getStatusEffects());
+
+        for(StatusEffect effect : effects){
+            effect.onTurnStart(unit);
+            effect.tick();
+            if(effect.isExpired()){
+                unit.removeStatusEffect(effect);
+            }
+        }
     }
 
     public List<Enemy> getEnemies() {
