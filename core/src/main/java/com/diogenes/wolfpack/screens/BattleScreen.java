@@ -280,9 +280,16 @@ public class BattleScreen implements Screen {
                     // pass null target to battlemanager as he has logic to handle it
                     confirmAndExecute(null);
                 } else {
-                    selectedTargetsList = (targetingType == TargetingType.SINGLE_ALLY)
-                        ? battleManager.getWolves()
-                        : battleManager.getEnemies();
+                    List<? extends Unit> candidates = (targetingType == TargetingType.SINGLE_ALLY)
+                        ? getActiveTargets(battleManager.getWolves())
+                        : getActiveTargets(battleManager.getEnemies());
+
+                    if(candidates.isEmpty()){
+                        // this should never hit because checkbattleover catches first
+                        return;
+                    }
+
+                    selectedTargetsList = candidates;
                     currentTargetIndex = 0;
                     currentState = BattleState.SELECT_TARGET;
                 }
@@ -308,6 +315,17 @@ public class BattleScreen implements Screen {
 
         }
 
+    }
+
+    // filter non-selectable units, dead ones, and for enemies also fled ones
+    private List<? extends Unit> getActiveTargets(List<? extends Unit> units){
+        List<Unit> active = new ArrayList<>();
+        for(Unit u : units){
+            if(!u.isAlive()) continue;
+            if(u instanceof Enemy && ((Enemy) u).hasFled()) continue;
+            active.add(u);
+        }
+        return active;
     }
 
     // execute the selected skill and advances turn
