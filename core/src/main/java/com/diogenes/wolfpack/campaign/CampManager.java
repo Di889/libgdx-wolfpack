@@ -20,7 +20,8 @@ public class CampManager {
     // TODO: tweak the values above based on tests, later
 
     // add food based on battle just finished and apply starvation damage based on the conditions
-    // only called at the start of the day, just before showing camp ui and start camp phase
+    // only called at the end of the day, just before showing camp ui and start camp phase, after the battle happened
+    // so we have the resolved enemies list
     public boolean resolveDayEnd(List<Enemy> battleEnemies, Campaign campaign) {
         for (Enemy enemy : battleEnemies) {
             if (!enemy.isAlive() && !enemy.hasFled()) {

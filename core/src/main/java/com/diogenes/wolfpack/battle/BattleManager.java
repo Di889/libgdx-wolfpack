@@ -41,7 +41,13 @@ public class BattleManager {
             if(currentTurnIndex >= turnOrder.size()){
                 currentTurnIndex = 0;
             }
-        }while(!turnOrder.get(currentTurnIndex).isAlive());
+        }while(!isActive(turnOrder.get(currentTurnIndex)));
+    }
+
+    private boolean isActive(Unit unit){
+        if(!unit.isAlive()) return false;
+        if(unit instanceof Enemy && ((Enemy) unit).hasFled()) return false;
+        return true;
     }
 
     public boolean playerWon(){
