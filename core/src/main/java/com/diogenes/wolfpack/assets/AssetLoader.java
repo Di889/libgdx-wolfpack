@@ -33,9 +33,11 @@ public class AssetLoader {
     public TextureRegion iconAttackDown;
     public TextureRegion iconMarked;
     public TextureRegion iconSelected;
+    public TextureRegion iconOkay;
 
     public TextureRegion whitePixel;
     public Texture winterBackground;
+    public Texture campBackground;
 
     public void load() {
         wolfSheet = new Texture(Gdx.files.internal("sprites/wolf_tailwag_full.png"));
@@ -76,12 +78,14 @@ public class AssetLoader {
         pixmap.dispose();
 
         winterBackground = new Texture(Gdx.files.internal("backgrounds/battlebg.png"));
+        campBackground = new Texture(Gdx.files.internal("backgrounds/campbg.png"));
 
         iconBleed = iconGrid[46][5];
         iconAttackUp = iconGrid[68][9];
         iconAttackDown = iconGrid[68][13];
         iconMarked = iconGrid[40][15];
         iconSelected = iconGrid[39][7];
+        iconOkay = iconGrid[54][15];
         // campfire icon = iconGrid[230][907]
         // forge icon =  [91][922]
     }
@@ -96,6 +100,7 @@ public class AssetLoader {
         if (rabbitSheet != null) rabbitSheet.dispose();
         if (iconSheet != null) iconSheet.dispose();
         if (winterBackground != null) winterBackground.dispose();
+        if (campBackground != null) campBackground.dispose();
         if (whitePixel != null && whitePixel.getTexture() != null) whitePixel.getTexture().dispose();
     }
 }
