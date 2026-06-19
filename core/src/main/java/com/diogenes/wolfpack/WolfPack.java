@@ -5,12 +5,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.diogenes.wolfpack.assets.AssetLoader;
-import com.diogenes.wolfpack.campaign.Campaign;
 import com.diogenes.wolfpack.entities.Alpha;
 import com.diogenes.wolfpack.entities.Healer;
 import com.diogenes.wolfpack.entities.Scout;
 import com.diogenes.wolfpack.entities.Wolf;
-import com.diogenes.wolfpack.screens.BattleScreen;
+import com.diogenes.wolfpack.screens.MainMenuScreen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +33,10 @@ public class WolfPack extends Game {
         assets = new AssetLoader();
         assets.load();
 
-        Campaign campaign = new Campaign(createStartingWolves());
-
-        this.setScreen(new BattleScreen(this, campaign, assets));
+        this.setScreen(new MainMenuScreen(this, assets));
     }
 
-    private List<Wolf> createStartingWolves() {
+    public List<Wolf> createStartingWolves() {
         List<Wolf> wolves = new ArrayList<>();
         wolves.add(new Alpha());
         wolves.add(new Healer());

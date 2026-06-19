@@ -38,6 +38,7 @@ public class AssetLoader {
     public TextureRegion whitePixel;
     public Texture winterBackground;
     public Texture campBackground;
+    public Texture menuBackground;
 
     public void load() {
         wolfSheet = new Texture(Gdx.files.internal("sprites/wolf_tailwag_full.png"));
@@ -79,6 +80,8 @@ public class AssetLoader {
 
         winterBackground = new Texture(Gdx.files.internal("backgrounds/battlebg.png"));
         campBackground = new Texture(Gdx.files.internal("backgrounds/campbg.png"));
+        // menuBackground is for menu and gameOver
+        menuBackground = new Texture(Gdx.files.internal("backgrounds/menubg.png"));
 
         iconBleed = iconGrid[46][5];
         iconAttackUp = iconGrid[68][9];
@@ -101,6 +104,7 @@ public class AssetLoader {
         if (iconSheet != null) iconSheet.dispose();
         if (winterBackground != null) winterBackground.dispose();
         if (campBackground != null) campBackground.dispose();
+        if (menuBackground != null) menuBackground.dispose();
         if (whitePixel != null && whitePixel.getTexture() != null) whitePixel.getTexture().dispose();
     }
 }
