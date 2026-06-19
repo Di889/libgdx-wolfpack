@@ -2,36 +2,48 @@ package com.diogenes.wolfpack.entities;
 
 public abstract class Wolf extends Unit {
 
-    private boolean hasTrained;
+    private boolean trainedAttack;
+    private boolean trainedDefense;
+    private boolean trainedHealth;
 
     public Wolf(String name, int maxHp, int attack, int defense, int speed) {
         super(name, maxHp, attack, defense, speed);
-        this.hasTrained = false;
+        this.trainedAttack = false;
+        this.trainedDefense = false;
+        this.trainedHealth = false;
     }
 
     public boolean trainAttack() {
-        if (hasTrained) return false;
+        if (trainedAttack) return false;
         this.attack++;
-        hasTrained = true;
+        trainedAttack = true;
         return true;
     }
 
     public boolean trainDefense() {
-        if (hasTrained) return false;
+        if (trainedDefense) return false;
         this.defense++;
-        hasTrained = true;
+        trainedDefense = true;
         return true;
     }
 
     public boolean trainMaxHp() {
-        if (hasTrained) return false;
+        if (trainedDefense) return false;
         this.maxHp += 5;
         this.heal(5);
-        hasTrained = true;
+        trainedHealth = true;
         return true;
     }
 
-    public boolean hasTrained() {
-        return hasTrained;
+    public boolean hasTrainedAttack() {
+        return trainedAttack;
+    }
+
+    public boolean hasTrainedDefense() {
+        return trainedDefense;
+    }
+
+    public boolean hasTrainedHealth() {
+        return trainedHealth;
     }
 }

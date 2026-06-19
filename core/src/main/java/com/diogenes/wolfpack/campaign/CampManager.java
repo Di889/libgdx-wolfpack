@@ -50,7 +50,7 @@ public class CampManager {
     }
 
     public boolean trainAttack(Wolf target, Campaign campaign) {
-        if (target.hasTrained() || !campaign.canAfford(TRAIN_ATTACK_COST)) return false;
+        if (target.hasTrainedAttack() || !campaign.canAfford(TRAIN_ATTACK_COST)) return false;
 
         campaign.spendFood(TRAIN_ATTACK_COST);
         target.trainAttack();
@@ -58,7 +58,7 @@ public class CampManager {
     }
 
     public boolean trainDefense(Wolf target, Campaign campaign) {
-        if (target.hasTrained() || !campaign.canAfford(TRAIN_DEFENSE_COST)) return false;
+        if (target.hasTrainedDefense() || !campaign.canAfford(TRAIN_DEFENSE_COST)) return false;
 
         campaign.spendFood(TRAIN_DEFENSE_COST);
         target.trainDefense();
@@ -66,7 +66,7 @@ public class CampManager {
     }
 
     public boolean trainMaxHp(Wolf target, Campaign campaign) {
-        if (target.hasTrained() || !campaign.canAfford(TRAIN_MAX_HP_COST)) return false;
+        if (target.hasTrainedHealth() || !campaign.canAfford(TRAIN_MAX_HP_COST)) return false;
 
         campaign.spendFood(TRAIN_MAX_HP_COST);
         target.trainMaxHp();
