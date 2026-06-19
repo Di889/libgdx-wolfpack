@@ -1,36 +1,40 @@
-# WolfPack
+## 1. Identificação
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
+- Nome: Diógenes Potrich Steca
+- Curso: Sistemas de Informação
 
-This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
+---
+## 2. Proposta
 
-## Platforms
+O objetivo desse trabalho é desenvolver um jogo de batalha em turnos estilo roguelike, desenvolvido em java com a biblioteca LIBGDX. O jogador controla uma matilha de três lobos(Alfa, Espiritualista e Rastreador) com papéis distintos que precisam sobreviver 7 dias de inverno, caçando outras ameaças animais e gerenciando recursos.
+Como funcionalidades importantes de se pontuar temos:
+- O sistema de habilidades, cada lobo tendo duas habilidades únicas que aproveitam polimorfismo por meio de uma `Skill` base.
+- O sistema de turnos, que toda unidade(`Unit`) age de acordo com seu atributo de velocidade(`Speed`), quanto maior antes a unidade agirá, o jogador escolhendo uma habilidade e um alvo e os inimigos controlados por heurísticas.
+- O sistema de efeitos de status(`statusEffects`), que são aplicados no meio de combate onde algumas habilidades os aplicam e afetam a batalha e os estados das unidades.
+- O sistema de campanha de 7 dias, que gerencia a progressão do jogador com dificuldade progressiva.
+- O sistema de gerador de encontros(`encounterGenerator`), que conjuntamente com a campanha garante variabilidade entre os encontros de cada dia, assim diversificando e enriquecendo a expêriencia do jogador.
+- O Leaderboard, que persiste os dados da gameplay, ao fim dela, dos jogadores e os exporta pra um outro ambiente, salvando informações-chave.
 
-- `core`: Main module with the application logic shared by all platforms.
-- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
-- `teavm`: Web backend that supports most JVM languages.
+Por fim, como proposto pela professora, o trabalho é versionado e desenvolvido de maneira incremental, a maneira que preferi desenvolver foi primeiro o nucleo lógico(core), como classes puramente escritas em java, e depois integrações com a interface e ferramentas do Libgdx. Funcionalidades adicionais possívelmente consideradas no momento de desenvolvimento foram avaliadas dado escopo e tempo restante.
 
-## Gradle
+---
+## 3. Processo de desenvolvimento 
+Processo de desenvolvimento: comentários sobre etapas do desenvolvimento, incluindo detalhes técnicos sobre os recursos de orientação a objetos utilizados, sobre erros/dificuldades/soluções e sobre as contribuições de cada integrante (⚠️ não usar IA para gerar ou revisar esses comentários!)
 
-This project uses [Gradle](https://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
 
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
-- `lwjgl3:run`: starts the application.
-- `teavm:build`: builds the JavaScript application into the build/dist/webapp folder.
-- `teavm:run`: serves the JavaScript application at http://localhost:8080 via a local Jetty server.
-- `test`: runs unit tests (if any).
 
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.
+## 4. Diagrama de classes
+
+Diagrama de classes: imagem com diagrama de classes do projeto, com crédito à ferramenta usada
+
+## 5. Orientacoes para execução
+
+Orientações para execução: instalação de dependências, etc.
+
+## 6. Resultado Final
+
+Resultado final: demonstrar execução em GIF animado ou vídeo curto
+
+## 7. Referências e créditos
+
+Referências e créditos (incluindo alguns prompts, quando aplicável)
