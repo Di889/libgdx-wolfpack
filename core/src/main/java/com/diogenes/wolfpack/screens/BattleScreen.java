@@ -46,6 +46,9 @@ public class BattleScreen implements Screen {
     private static final int MAX_LOG_ENTRIES = 5; // Maybe test with more?
     private final List<String> battleLog = new ArrayList<>();
 
+    private static final float ENEMY_TURN_DELAY = 1.0f;
+    private float enemyTurnTimer;
+
     public BattleScreen(final WolfPack game, final Campaign campaign, final AssetLoader assets) {
         this.game = game;
         this.campaign = campaign;
@@ -71,8 +74,7 @@ public class BattleScreen implements Screen {
     public void render(float delta) {
 
         handleInput();
-        update();
-
+        update(delta);
         draw();
     }
 
@@ -100,7 +102,7 @@ public class BattleScreen implements Screen {
     public void dispose() {
     }
 
-    private void update(){
+    private void update(float delta){
         if(checkBattleOver()) return;
 
         if (battleManager.getCurrentUnit() instanceof Wolf) {
@@ -111,8 +113,12 @@ public class BattleScreen implements Screen {
 
         } else {
             currentState = BattleState.ENEMY_TURN;
-            handleEnemyTurn();
-            advanceToNextTurn();
+            enemyTurnTimer += delta;
+            if(enemyTurnTimer >= ENEMY_TURN_DELAY){
+                handleEnemyTurn();
+                advanceToNextTurn();
+                enemyTurnTimer = 0f;
+            }
         }
     }
 
@@ -159,7 +165,6 @@ public class BattleScreen implements Screen {
         }
     }
 
-    // need to add a waiting time, or "space to continue"
     private void handleEnemyTurn(){
         BattleAction action = ((Enemy) battleManager.getCurrentUnit()).chooseAction(battleManager.getWolves());
 
