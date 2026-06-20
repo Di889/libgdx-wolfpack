@@ -432,10 +432,10 @@ public class BattleScreen implements Screen {
 
     private TextureRegion getIconForStatus(StatusEffect effect) {
         String name = effect.getName();
-        if (name.equals("Sangramento") || name.equals("Bleed")) return assets.iconBleed;
-        if (name.equals("Ataque+") || name.equals("Attack Up")) return assets.iconAttackUp;
-        if (name.equals("Ataque-") || name.equals("Attack Down")) return assets.iconAttackDown;
-        if (name.equals("Marcado") || name.equals("Marked")) return assets.iconMarked;
+        if (name.equals("Sangramento")) return assets.iconBleed;
+        if (name.equals("Ataque Aumentado")) return assets.iconAttackUp;
+        if (name.equals("Ataque Reduzido")) return assets.iconAttackDown;
+        if (name.equals("Marcado")) return assets.iconMarked;
         return null;
     }
 
