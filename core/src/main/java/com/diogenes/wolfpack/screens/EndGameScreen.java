@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.diogenes.wolfpack.WolfPack;
 import com.diogenes.wolfpack.assets.AssetLoader;
+import com.diogenes.wolfpack.campaign.Campaign;
+import com.diogenes.wolfpack.campaign.LeaderboardManager;
 
 public class EndGameScreen implements Screen {
 
@@ -17,17 +19,22 @@ public class EndGameScreen implements Screen {
     private final Viewport viewport;
     private final int daysSurvived;
     private final boolean isVictory;
+    private final Campaign campaign;
 
-    public EndGameScreen(final WolfPack game, final AssetLoader assets, int daysSurvived, boolean isVictory) {
+    public EndGameScreen(final WolfPack game, final AssetLoader assets, int daysSurvived, Campaign campaign, boolean isVictory) {
         this.game = game;
         this.assets = assets;
         this.daysSurvived = daysSurvived;
+        this.campaign = campaign;
         this.isVictory = isVictory;
         this.viewport = new FitViewport(WolfPack.WORLD_WIDTH, WolfPack.WORLD_HEIGHT);
     }
 
     @Override
-    public void show() {}
+    public void show() {
+        LeaderboardManager leaderboard = new LeaderboardManager();
+        leaderboard.enviarPontuacao(campaign.getPlayerName(), daysSurvived, isVictory);
+    }
 
     @Override
     public void render(float delta) {

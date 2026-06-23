@@ -143,13 +143,13 @@ public class BattleScreen implements Screen {
     private boolean checkBattleOver() {
         if (battleManager.playerLost()) {
             currentState = BattleState.DEFEAT;
-            game.setScreen(new EndGameScreen(game, assets, campaign.getCurrentDay(), false));
+            game.setScreen(new EndGameScreen(game, assets, campaign.getCurrentDay(), campaign, false));
             return true;
         }
         if (battleManager.playerWon()) {
             if (campaign.isFinalDay()) {
                 currentState = BattleState.VICTORY;
-                game.setScreen(new EndGameScreen(game, assets, campaign.getCurrentDay(), true));
+                game.setScreen(new EndGameScreen(game, assets, campaign.getCurrentDay(),campaign , true));
             } else {
                 game.setScreen(new CampScreen(game, campaign, enemies, assets));
             }

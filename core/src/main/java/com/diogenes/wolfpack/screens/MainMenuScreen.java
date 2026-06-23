@@ -48,6 +48,7 @@ public class MainMenuScreen implements Screen {
     private void startGame() {
         Gdx.input.setInputProcessor(null);
         Campaign campaign = new Campaign(game.createStartingWolves());
+        campaign.setPlayerName(playerName);
         game.setScreen(new BattleScreen(game, campaign, assets));
     }
 

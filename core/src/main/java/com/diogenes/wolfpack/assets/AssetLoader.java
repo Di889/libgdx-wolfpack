@@ -44,8 +44,11 @@ public class AssetLoader {
         wolfSheet = new Texture(Gdx.files.internal("sprites/wolf_tailwag_full.png"));
         TextureRegion[][] wolfGrid = TextureRegion.split(wolfSheet, 32, 32);
         wolfScout = wolfGrid[1][0];
+        wolfScout.flip(true, false);
         wolfHealer = wolfGrid[1][3];
+        wolfHealer.flip(true, false);
         wolfAlpha = wolfGrid[1][6];
+        wolfAlpha.flip(true, false);
 
         boarSheet = new Texture(Gdx.files.internal("sprites/Boar_Idle.png"));
         enemyBoar = TextureRegion.split(boarSheet, 64, 40)[0][0];

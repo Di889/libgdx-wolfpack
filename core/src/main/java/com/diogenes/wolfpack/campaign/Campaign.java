@@ -7,7 +7,8 @@ import java.util.List;
 public class Campaign {
 
     public static final int TOTAL_DAYS = 7;
-    private static final int STARTING_FOOD = 8;
+    private static final int STARTING_FOOD = 5;
+    private String playerName = "Jogador";
 
     private final List<Wolf> wolves;
     private int currentDay;
@@ -58,5 +59,13 @@ public class Campaign {
 
     public List<Wolf> getWolves() {
         return wolves;
+    }
+
+    public void setPlayerName(String name) {
+        this.playerName = name;
+    }
+
+    public String getPlayerName() {
+        return playerName;
     }
 }

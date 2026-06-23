@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CampManager {
 
-    private static final int DAILY_CONSUMPTION = 3;
+    private static final int DAILY_CONSUMPTION = 0; // removed daily consumption for balancing issues
     private static final int STARVATION_DAMAGE = 5;
 
     public static final int FEED_COST = 2;
