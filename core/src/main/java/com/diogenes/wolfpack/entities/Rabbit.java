@@ -15,7 +15,7 @@ public class Rabbit extends Enemy {
 
     public Rabbit() {
         super("Coelho", 8, 2, 1, 12);
-        this.foodReward = 3;
+        this.foodReward = 1;
 
         addSkill(new Scratch());
         this.turnsTaken = 0;

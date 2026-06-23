@@ -6,13 +6,13 @@ import com.diogenes.wolfpack.skills.BossMaul;
 import com.diogenes.wolfpack.skills.Claw;
 import com.diogenes.wolfpack.skills.FerociousRoar;
 
+import java.util.ArrayList;
 import java.util.List;
 
-//TODO: same problem, think of better atk pattern, maybe use only Claw in phase 1 and phase2 only BossMaul
 public class BossBear extends Enemy {
 
     private static final double ENRAGE_HP_THRESHOLD = 0.3;
-    private static final int ENRAGE_ATTACK = 24;
+    private static final int ENRAGE_BONUS_ATTACK = 4;
 
     private boolean enraged;
 
@@ -43,7 +43,7 @@ public class BossBear extends Enemy {
         if (enraged) return;
 
         if (getHp() <= getMaxHp() * ENRAGE_HP_THRESHOLD) {
-            modifyAttack(ENRAGE_ATTACK - getAttack());
+            modifyAttack(ENRAGE_BONUS_ATTACK);
             enraged = true;
         }
     }

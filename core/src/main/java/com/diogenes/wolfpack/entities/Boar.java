@@ -6,9 +6,10 @@ import com.diogenes.wolfpack.skills.Bash;
 import com.diogenes.wolfpack.skills.Skill;
 import com.diogenes.wolfpack.skills.TuskSwing;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Boar extends Enemy{
+public class Boar extends Enemy {
 
     public Boar() {
         super("Javali", 30, 6, 4, 4);
@@ -20,10 +21,15 @@ public class Boar extends Enemy{
 
     @Override
     public BattleAction chooseAction(List<? extends Unit> targets) {
-        Unit highestHpTarget = targets.get(0);
+        List<Unit> aliveTargets = new ArrayList<>();
+        for (Unit u : targets) {
+            if (u.isAlive()) aliveTargets.add(u);
+        }
+        if (aliveTargets.isEmpty()) return null;
 
-        for(Unit u : targets){
-            if(u.getHp() > highestHpTarget.getHp()){
+        Unit highestHpTarget = aliveTargets.get(0);
+        for (Unit u : aliveTargets) {
+            if (u.getHp() > highestHpTarget.getHp()) {
                 highestHpTarget = u;
             }
         }
@@ -33,4 +39,3 @@ public class Boar extends Enemy{
         return new BattleAction(skillToUse, highestHpTarget);
     }
 }
-

@@ -8,7 +8,7 @@ import java.util.List;
 public class Roar extends Skill {
 
     private static final int DURATION = 2;
-    private static final int ATTACK_PENALTY = 2;
+    private static final int ATTACK_PENALTY = 1;
 
     public Roar() {
         super("Rugido", "Reduz o ATQ de toda a matilha por 2 turnos.", TargetingType.ALL_ENEMIES);

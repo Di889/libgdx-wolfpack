@@ -8,7 +8,7 @@ import java.util.List;
 public class FerociousRoar extends Skill {
 
     private static final int DURATION = 2;
-    private static final int ATTACK_PENALTY = 3;
+    private static final int ATTACK_PENALTY = 2;
 
     public FerociousRoar() {
         super("Rugido Feroz", "Reduz fortemente o ATQ de toda a matilha por 2 turnos.", TargetingType.ALL_ENEMIES);

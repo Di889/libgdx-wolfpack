@@ -1,11 +1,14 @@
 package com.diogenes.wolfpack.entities;
 
 import com.diogenes.wolfpack.battle.BattleAction;
+import com.diogenes.wolfpack.effects.AttackUp;
 import com.diogenes.wolfpack.skills.FoxNip;
 import com.diogenes.wolfpack.skills.QuickPounce;
+import com.diogenes.wolfpack.skills.Skill;
 
+import java.util.ArrayList;
 import java.util.List;
-// TODO: make so quickpouncec does like 80% of atk dmg but buffs and nip does 100%
+
 public class Fox extends Enemy {
 
     public Fox() {
@@ -19,13 +22,14 @@ public class Fox extends Enemy {
     @Override
     public BattleAction chooseAction(List<? extends Unit> targets) {
         Unit lowestHpTarget = targets.get(0);
-
         for (Unit u : targets) {
             if (u.getHp() < lowestHpTarget.getHp()) {
                 lowestHpTarget = u;
             }
         }
 
-        return new BattleAction(getSkills().get(1), lowestHpTarget);
+        Skill skillToUse = this.hasStatusEffect(AttackUp.class) ? getSkills().get(0) : getSkills().get(1);
+
+        return new BattleAction(skillToUse, lowestHpTarget);
     }
 }

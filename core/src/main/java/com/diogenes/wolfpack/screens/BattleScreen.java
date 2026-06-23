@@ -147,6 +147,8 @@ public class BattleScreen implements Screen {
             return true;
         }
         if (battleManager.playerWon()) {
+            battleManager.clearWolfEffects();
+
             if (campaign.isFinalDay()) {
                 currentState = BattleState.VICTORY;
                 game.setScreen(new EndGameScreen(game, assets, campaign.getCurrentDay(),campaign , true));
@@ -168,7 +170,7 @@ public class BattleScreen implements Screen {
     }
 
     private void handleEnemyTurn(){
-        BattleAction action = ((Enemy) battleManager.getCurrentUnit()).chooseAction(battleManager.getWolves());
+        BattleAction action = ((Enemy) battleManager.getCurrentUnit()).chooseAction(getActiveTargets(battleManager.getWolves()));
 
         // if action is null the enemy fled
         if(action == null) return;
@@ -207,6 +209,12 @@ public class BattleScreen implements Screen {
                 }
             }
         } else if (currentState == BattleState.SELECT_TARGET) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)) {
+                currentState = BattleState.SELECT_SKILL;
+                selectedTarget = null;
+                return;
+            }
+
             if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
                 if (currentTargetIndex > 0) currentTargetIndex--;
             }
@@ -516,6 +524,10 @@ public class BattleScreen implements Screen {
             game.font.draw(game.batch, cursor + selectedTargetsList.get(i).getName(), x, y);
             y -= 26;
         }
+
+        game.font.setColor(Color.GRAY);
+        game.font.draw(game.batch, "[ESC / BACKSPACE] para voltar", x, 25);
+        game.font.setColor(Color.WHITE);
     }
 
     private void drawDescriptionPanel(float width, float bottomY, float offsetX) {

@@ -35,12 +35,17 @@ public abstract class Unit {
         return hp > 0;
     }
 
-    public int takeDamage(int damage) {
+    private int processDamageHooks(int damage) {
         // cause the statuseffects handled this way remove themselves in middle of the loop
         // we have to make loop backwards
         for (int i = statusEffects.size() - 1; i >= 0; i--) {
             damage = statusEffects.get(i).onIncomingDamage(damage, this);
         }
+        return damage;
+    }
+
+    public int takeDamage(int damage) {
+        damage = processDamageHooks(damage);
 
         int realDamage = Math.max(1, damage - defense);
         hp = Math.max(0, hp - realDamage);
@@ -48,6 +53,8 @@ public abstract class Unit {
     }
 
     public int applyTrueDamage(int damage){
+        damage = processDamageHooks(damage);
+
         int realDamage = Math.max(0, damage);
         int newHp = Math.max(0, hp - realDamage);
         realDamage = hp - newHp;

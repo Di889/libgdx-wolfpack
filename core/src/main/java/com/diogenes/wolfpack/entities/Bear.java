@@ -7,12 +7,11 @@ import com.diogenes.wolfpack.skills.Claw;
 import com.diogenes.wolfpack.skills.Roar;
 
 import java.util.List;
-// TODO: bear should alternate between claw and bearhug for balancing issues prob
 public class Bear extends Enemy {
 
     public Bear() {
         super("Urso", 55, 10, 6, 5);
-        this.foodReward = 5;
+        this.foodReward = 3;
 
         addSkill(new Claw());
         addSkill(new Roar());
@@ -22,11 +21,16 @@ public class Bear extends Enemy {
     @Override
     public BattleAction chooseAction(List<? extends Unit> targets) {
         if (!anyTargetHasAttackDown(targets)) {
-            return new BattleAction(getSkills().get(1), null);
+            return new BattleAction(getSkills().get(1), null); // Roar
         }
 
-        Unit highestHpTarget = getHighestHpTarget(targets);
-        return new BattleAction(getSkills().get(2), highestHpTarget);
+        if (Math.random() < 0.5) {
+            Unit highestHpTarget = getHighestHpTarget(targets);
+            return new BattleAction(getSkills().get(2), highestHpTarget); // BearHug
+        } else {
+            Unit randomTarget = targets.get(new java.util.Random().nextInt(targets.size()));
+            return new BattleAction(getSkills().get(0), randomTarget); // Claw
+        }
     }
 
     private boolean anyTargetHasAttackDown(List<? extends Unit> targets) {

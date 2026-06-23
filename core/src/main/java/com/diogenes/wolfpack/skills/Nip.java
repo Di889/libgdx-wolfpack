@@ -5,11 +5,11 @@ import com.diogenes.wolfpack.entities.Unit;
 public class Nip extends Skill {
 
     public Nip() {
-        super("Mordiscar", "Ataque básico que causa dano igual ao ATQ.", TargetingType.SINGLE_ENEMY);
+        super("Mordiscar", "Ataque místico que ignora defesa e causa 100% do ATQ.", TargetingType.SINGLE_ENEMY);
     }
 
     @Override
     protected void execute(Unit user, Unit target) {
-        target.takeDamage(user.getAttack());
+        target.applyTrueDamage(user.getAttack());
     }
 }

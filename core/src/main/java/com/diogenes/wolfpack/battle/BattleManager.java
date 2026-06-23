@@ -184,4 +184,14 @@ public class BattleManager {
     public List<Unit> getTurnOrder() {
         return turnOrder;
     }
+
+    public void clearWolfEffects() {
+        for (Wolf wolf : wolves) {
+            List<StatusEffect> effects = new ArrayList<>(wolf.getStatusEffects());
+
+            for (StatusEffect effect : effects) {
+                wolf.removeStatusEffect(effect);
+            }
+        }
+    }
 }
