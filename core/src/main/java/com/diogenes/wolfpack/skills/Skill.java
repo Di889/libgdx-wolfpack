@@ -16,14 +16,8 @@ abstract public class Skill {
         this.targetingType = targetingType;
     }
 
-    public boolean use(Unit user, Unit target) {
-        execute(user, target);
-        return true;
-    }
-
-    public boolean use(Unit user, List<? extends Unit> targets) {
+    public void use(Unit user, List<? extends Unit> targets) {
         execute(user, targets);
-        return true;
     }
 
     protected abstract void execute(Unit user, Unit target);
